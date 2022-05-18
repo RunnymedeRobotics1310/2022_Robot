@@ -20,8 +20,8 @@ public final class Constants {
 
         public static final int LEFT_MOTOR_PORT = 10;
         public static final int RIGHT_MOTOR_PORT = 20;
-        public static final boolean LEFT_MOTOR_REVERSED = true;
-        public static final boolean RIGHT_MOTOR_REVERSED = false;
+        public static final boolean LEFT_MOTOR_REVERSED = false;
+        public static final boolean RIGHT_MOTOR_REVERSED = true;
 
         public static final int[] LEFT_ENCODER_PORTS = new int[] { 0, 1 };
         public static final int[] RIGHT_ENCODER_PORTS = new int[] { 2, 3 };
