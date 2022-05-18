@@ -42,7 +42,8 @@ public final class Constants {
 
         public static final int CAROUSEL_MOTOR_ADDRESS = 39;
         public static final boolean CAROUSEL_MOTOR_REVERSED = true;//maybe
-        
+        public static final int CAROUSEL_KICKER_MOTOR_ADDRESS = 45;
+        public static final boolean CAROUSEL_KICKER_MOTOR_REVERSED = true;
     }
 
     public static final class IntakeConstants {

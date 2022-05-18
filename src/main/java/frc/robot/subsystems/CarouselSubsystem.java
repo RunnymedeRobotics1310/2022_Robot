@@ -1,8 +1,11 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CarouselConstants;
 
@@ -11,7 +14,10 @@ public class CarouselSubsystem extends SubsystemBase {
     // The motors on the left side of the drive.
     private final CANSparkMax carouselMotor =
             new CANSparkMax(CarouselConstants.CAROUSEL_MOTOR_ADDRESS, MotorType.kBrushless);
-
+    private final VictorSPX carouselKickerMotor =
+            new VictorSPX(45);
+    private final DigitalInput ballSensor = 
+            new DigitalInput(0);
     /** Creates a new CarouselSubsystem. */
     public CarouselSubsystem() {
         // We need to invert one side of the drivetrain so that positive voltages
@@ -19,7 +25,7 @@ public class CarouselSubsystem extends SubsystemBase {
         // gearbox is constructed, you might have to invert the left side instead.
         //for carousel, this is unknown at the moment
         carouselMotor.setInverted(CarouselConstants.CAROUSEL_MOTOR_REVERSED);//do we need a carousel motor reversed constant?
-
+        carouselKickerMotor.setInverted(CarouselConstants.CAROUSEL_KICKER_MOTOR_REVERSED);
     }
 
     /**
@@ -54,7 +60,15 @@ public class CarouselSubsystem extends SubsystemBase {
     }
 
     public void setMotorSpeed(double speed) {
-        carouselMotor.set(speed);
+        if (ballSensor.get()){
+            carouselMotor.set(speed);
+            carouselKickerMotor.set(VictorSPXControlMode.PercentOutput, speed);
+        }
+        else{
+            carouselMotor.set(0);
+            carouselKickerMotor.set(VictorSPXControlMode.PercentOutput, 0);
+        }
+
     }
 
     @Override
