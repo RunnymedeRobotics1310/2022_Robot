@@ -38,6 +38,13 @@ public final class Constants {
         public static final boolean GYRO_REVERSED = false;
     }
 
+    public static final class CarouselConstants {
+
+        public static final int CAROUSEL_MOTOR_ADDRESS = 39;
+        public static final boolean CAROUSEL_MOTOR_REVERSED = true;//maybe
+        
+    }
+
     public static final class IntakeConstants {
 
         public static final int INTAKE_TOP_MOTOR_ADDRESS = 30;

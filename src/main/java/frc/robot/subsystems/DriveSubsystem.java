@@ -1,8 +1,5 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -31,7 +28,7 @@ public class DriveSubsystem extends SubsystemBase {
         // gearbox is constructed, you might have to invert the left side instead.
         leftPrimaryMotor .setInverted(DriveConstants.LEFT_MOTOR_REVERSED);
         leftFollowerMotor.setInverted(DriveConstants.LEFT_MOTOR_REVERSED);
-        
+
         rightPrimaryMotor .setInverted(DriveConstants.RIGHT_MOTOR_REVERSED);
         rightFollowerMotor.setInverted(DriveConstants.RIGHT_MOTOR_REVERSED);
 
@@ -72,10 +69,10 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void setMotorSpeeds(double leftSpeed, double rightSpeed) {
-    	
+
         leftPrimaryMotor.set(leftSpeed);
         leftFollowerMotor.set(leftSpeed);
-        
+
         rightPrimaryMotor.set(rightSpeed);
         rightFollowerMotor.set(rightSpeed);
     }
