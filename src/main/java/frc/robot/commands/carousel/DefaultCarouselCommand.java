@@ -3,6 +3,8 @@ package frc.robot.commands.carousel;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.CarouselSubsystem;
+import edu.wpi.first.wpilibj.DigitalInput;
+
 
 public class DefaultCarouselCommand extends CommandBase {
 
@@ -10,6 +12,7 @@ public class DefaultCarouselCommand extends CommandBase {
 	private final Joystick driverController;
 	private boolean carouselOn = false;
 	private boolean previousState = false;
+	private final DigitalInput ballSensor = new DigitalInput(0);
 
 	/**
 	 * Creates a new ExampleCommand.
@@ -43,6 +46,9 @@ public class DefaultCarouselCommand extends CommandBase {
 
 		if(carouselOn) {
 			carouselSubsystem.setMotorSpeed(0.3);
+			if (!ballSensor.get()){
+				carouselOn = !carouselOn;
+			}
 		}
 		else{
 			carouselSubsystem.setMotorSpeed(0);
