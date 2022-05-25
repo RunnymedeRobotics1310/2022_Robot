@@ -61,8 +61,8 @@ public class DriveSubsystem extends SubsystemBase {
     public double getRightEncoder() {
         return rightPrimaryMotor.getEncoder().getPosition();
     }
-
-    /** Resets the drive encoders to currently read a position of 0. */
+// CHECK THIS, MIGHT NOT WORK???
+    /** Resets the drive encoders to currently read a position of 0. */ 
     public void resetEncoders() {
         leftPrimaryMotor.getEncoder().getPosition();
         rightPrimaryMotor.getEncoder().getPosition();

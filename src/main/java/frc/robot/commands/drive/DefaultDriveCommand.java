@@ -33,29 +33,35 @@ public class DefaultDriveCommand extends CommandBase {
 	public void execute() {
 
 		// What else to put here ladies and gentlemen?
+		
+		double leftY = driverController.getRawAxis(1);
+		double leftX = driverController.getRawAxis(0);
+		double leftSpeed = leftY * -1 + leftX;
+		double rightSpeed = leftY * -1 - leftX;
 
-		double leftY = -driverController.getRawAxis(1);
-		double rightY = -driverController.getRawAxis(5);
-		double leftT = driverController.getRawAxis(2);
-		double rightT = driverController.getRawAxis(3);
+		// Tank drive:
+	//	double leftY = -driverController.getRawAxis(1);
+	//	double rightY = -driverController.getRawAxis(5);
+	//	double leftT = driverController.getRawAxis(2);
+	//	double rightT = driverController.getRawAxis(3);
 		boolean boost = false;
 
 		if (driverController.getRawButton(5) || driverController.getRawButton(6)){
 			boost = true;
 		}
-		
-		if (leftT >0) {
-			driveSubsystem.setMotorSpeeds(-leftT, leftT);
-		}
-		else if (rightT >0) {
-			driveSubsystem.setMotorSpeeds(rightT, -rightT);
-		}
+			//Also tank drive: 
+		// if (leftT >0) {
+		// 	driveSubsystem.setMotorSpeeds(-leftT, leftT)
+		// }
+		// else if (rightT >0) {
+		// 	driveSubsystem.setMotorSpeeds(rightT, -rightT);
+		// }
 
-		else if (!boost) {
+		if (!boost) {
 			//Not sure if this is a good speed!
-			driveSubsystem.setMotorSpeeds(leftY/2, rightY/2);
+			driveSubsystem.setMotorSpeeds(leftSpeed/2, rightSpeed/2);
 		} else {
-			driveSubsystem.setMotorSpeeds(leftY, rightY);
+			driveSubsystem.setMotorSpeeds(leftSpeed, rightSpeed);
 		}
 	}
 

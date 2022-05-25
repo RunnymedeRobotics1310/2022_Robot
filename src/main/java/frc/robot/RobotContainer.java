@@ -13,9 +13,11 @@ import frc.robot.Constants.OiConstants;
 import frc.robot.commands.carousel.DefaultCarouselCommand;
 import frc.robot.commands.drive.DefaultDriveCommand;
 import frc.robot.commands.intake.DefaultIntakeCommand;
+import frc.robot.commands.shooter.DefaultShooterCommand;
 import frc.robot.subsystems.CarouselSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -30,7 +32,7 @@ public class RobotContainer {
     private final DriveSubsystem driveSubsystem = new DriveSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final CarouselSubsystem carouselSubsystem = new CarouselSubsystem();
-
+    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
     // Instant Command is a placeholder command that does nothing
     private final Command autonomousCommand = new InstantCommand();
 
@@ -46,7 +48,7 @@ public class RobotContainer {
         driveSubsystem.setDefaultCommand(new DefaultDriveCommand(driverController, driveSubsystem));
         intakeSubsystem.setDefaultCommand(new DefaultIntakeCommand(driverController, intakeSubsystem));
         carouselSubsystem.setDefaultCommand(new DefaultCarouselCommand(driverController, carouselSubsystem));
-
+        shooterSubsystem.setDefaultCommand(new DefaultShooterCommand(driverController, shooterSubsystem));
         // Configure the button bindings
         configureButtonBindings();
     }
