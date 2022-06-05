@@ -38,6 +38,10 @@ public final class Constants {
         public static final boolean GYRO_REVERSED = false;
     }
 
+    public static final class AutoConstants {
+        public static final String AUTO_PATTERN_DO_NOTHING = "Do nothing";
+    }
+
     public static final class CarouselConstants {
 
         public static final int CAROUSEL_MOTOR_ADDRESS = 39;

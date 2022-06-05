@@ -7,9 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OiConstants;
+import frc.robot.commands.auto.AutonomousCommand;
 import frc.robot.commands.carousel.DefaultCarouselCommand;
 import frc.robot.commands.drive.DefaultDriveCommand;
 import frc.robot.commands.intake.DefaultIntakeCommand;
@@ -29,12 +31,13 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class RobotContainer {
 
     // The robot's subsystems and commands are defined here...
-    private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final DriveSubsystem driveSubsystem       = new DriveSubsystem();
+    private final IntakeSubsystem intakeSubsystem     = new IntakeSubsystem();
     private final CarouselSubsystem carouselSubsystem = new CarouselSubsystem();
-    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-    // Instant Command is a placeholder command that does nothing
-    private final Command autonomousCommand = new InstantCommand();
+    private final ShooterSubsystem shooterSubsystem   = new ShooterSubsystem();
+
+    // A chooser for autonomous commands
+    SendableChooser<String> autoChooser = new SendableChooser<>();
 
     // The driver's controller
     private final Joystick driverController = new Joystick(OiConstants.DRIVER_CONTROLLER_PORT);
@@ -45,10 +48,14 @@ public class RobotContainer {
     public RobotContainer() {
 
         // Initialize all Subsystem default commands.
-        driveSubsystem.setDefaultCommand(new DefaultDriveCommand(driverController, driveSubsystem));
-        intakeSubsystem.setDefaultCommand(new DefaultIntakeCommand(driverController, intakeSubsystem));
+        driveSubsystem   .setDefaultCommand(new DefaultDriveCommand   (driverController, driveSubsystem));
+        intakeSubsystem  .setDefaultCommand(new DefaultIntakeCommand  (driverController, intakeSubsystem));
         carouselSubsystem.setDefaultCommand(new DefaultCarouselCommand(driverController, carouselSubsystem));
-        shooterSubsystem.setDefaultCommand(new DefaultShooterCommand(driverController, shooterSubsystem));
+        shooterSubsystem .setDefaultCommand(new DefaultShooterCommand (driverController, shooterSubsystem));
+
+        // Initialize the autonomous chooser
+        autoChooser.setDefaultOption(AutoConstants.AUTO_PATTERN_DO_NOTHING, AutoConstants.AUTO_PATTERN_DO_NOTHING);
+
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -69,6 +76,11 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // no auto
-        return autonomousCommand;
+        return new AutonomousCommand(
+                driveSubsystem,
+                intakeSubsystem,
+                carouselSubsystem,
+                shooterSubsystem,
+                autoChooser);
     }
 }
