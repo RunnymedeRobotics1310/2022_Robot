@@ -34,6 +34,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
 
         case AutoConstants.AUTO_PATTERN_DO_NOTHING:
             // Do nothing
+            System.out.println("Do nothing auto selected");
             addCommands (
                     new InstantCommand()
                     );
