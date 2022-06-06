@@ -10,10 +10,9 @@ import frc.robot.Constants.DriveConstants;
 public class DriveSubsystem extends SubsystemBase {
 
     // The motors on the left side of the drive.
-    private final CANSparkMax leftPrimaryMotor =
-            new CANSparkMax(DriveConstants.LEFT_MOTOR_PORT, MotorType.kBrushless);
-    private final CANSparkMax leftFollowerMotor =
-            new CANSparkMax(DriveConstants.LEFT_MOTOR_PORT+1, MotorType.kBrushless);
+    private final CANSparkMax leftPrimaryMotor= new CANSparkMax(DriveConstants.LEFT_MOTOR_PORT, MotorType.kBrushless);
+
+    private final CANSparkMax leftFollowerMotor= new CANSparkMax(DriveConstants.LEFT_MOTOR_PORT+1, MotorType.kBrushless);
 
     // The motors on the right side of the drive.
     private final CANSparkMax rightPrimaryMotor =
@@ -26,10 +25,12 @@ public class DriveSubsystem extends SubsystemBase {
         // We need to invert one side of the drivetrain so that positive voltages
         // result in both sides moving forward. Depending on how your robot's
         // gearbox is constructed, you might have to invert the left side instead.
-        leftPrimaryMotor .setInverted(DriveConstants.LEFT_MOTOR_REVERSED);
+        leftPrimaryMotor.setInverted(DriveConstants.LEFT_MOTOR_REVERSED);
+
         leftFollowerMotor.setInverted(DriveConstants.LEFT_MOTOR_REVERSED);
 
         rightPrimaryMotor .setInverted(DriveConstants.RIGHT_MOTOR_REVERSED);
+       
         rightFollowerMotor.setInverted(DriveConstants.RIGHT_MOTOR_REVERSED);
 
 
@@ -41,7 +42,8 @@ public class DriveSubsystem extends SubsystemBase {
      * @return the average of the two encoder readings
      */
     public double getAverageEncoderDistance() {
-        return (leftPrimaryMotor.getEncoder().getPosition() + rightPrimaryMotor.getEncoder().getPosition()) / 2;
+        // return (leftPrimaryMotor.getEncoder().getPosition() + rightPrimaryMotor.getEncoder().getPosition()) / 2;
+        return 0;
     }
 
     /**
@@ -50,7 +52,8 @@ public class DriveSubsystem extends SubsystemBase {
      * @return the left drive encoder
      */
     public double getLeftEncoder() {
-        return leftPrimaryMotor.getEncoder().getPosition();
+        // return leftPrimaryMotor.getEncoder().getPosition();
+        return 0;
     }
 
     /**
@@ -59,7 +62,8 @@ public class DriveSubsystem extends SubsystemBase {
      * @return the right drive encoder
      */
     public double getRightEncoder() {
-        return rightPrimaryMotor.getEncoder().getPosition();
+        // return rightPrimaryMotor.getEncoder().getPosition();
+        return 0;
     }
 // CHECK THIS, MIGHT NOT WORK???
     /** Resets the drive encoders to currently read a position of 0. */ 
