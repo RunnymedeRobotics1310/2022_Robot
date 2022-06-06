@@ -42,29 +42,21 @@ public final class Constants {
         public static final String AUTO_PATTERN_DO_NOTHING = "Do nothing";
     }
 
-    public static final class CarouselConstants {
-
-        public static final int CAROUSEL_MOTOR_ADDRESS = 39;
-        public static final boolean CAROUSEL_MOTOR_REVERSED = true;
-        public static final int CAROUSEL_KICKER_MOTOR_ADDRESS = 45;
-        public static final boolean CAROUSEL_KICKER_MOTOR_REVERSED = true;
-    }
 
     public static final class IntakeConstants {
 
         public static final int INTAKE_TOP_MOTOR_ADDRESS = 30;
-        public static final int INTAKE_BOTTOM_MOTOR_ADDRESS = 31;
         public static final boolean INTAKE_TOP_MOTOR_REVERSED = true;
-        public static final boolean INTAKE_BOTTOM_MOTOR_REVERSED = true;
 
     }
 
     public static final class ShooterConstants{
 
-        public static final int SHOOTER_RIGHT_MOTOR_ADDRESS = 50;
-        public static final int SHOOTER_LEFT_MOTOR_ADDRESS = 51;
-        public static final boolean SHOOTER_RIGHT_MOTOR_REVERSED = false;
-        public static final boolean SHOOTER_LEFT_MOTOR_REVERSED = true;
+        public static final int SHOOTER_MOTOR_ADDRESS = 51;
+        public static final boolean SHOOTER_MOTOR_REVERSED = true;
+
+        public static final int KICKER_MOTOR_ADDRESS = 50;
+        public static final boolean KICKER_MOTOR_REVERSED = true;
     }
 
     public static final class OiConstants {

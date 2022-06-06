@@ -12,11 +12,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OiConstants;
 import frc.robot.commands.auto.AutonomousCommand;
-import frc.robot.commands.carousel.DefaultCarouselCommand;
 import frc.robot.commands.drive.DefaultDriveCommand;
 import frc.robot.commands.intake.DefaultIntakeCommand;
 import frc.robot.commands.shooter.DefaultShooterCommand;
-import frc.robot.subsystems.CarouselSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -33,7 +31,6 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveSubsystem driveSubsystem       = new DriveSubsystem();
     private final IntakeSubsystem intakeSubsystem     = new IntakeSubsystem();
-    private final CarouselSubsystem carouselSubsystem = new CarouselSubsystem();
     private final ShooterSubsystem shooterSubsystem   = new ShooterSubsystem();
 
     // A chooser for autonomous commands
@@ -50,7 +47,6 @@ public class RobotContainer {
         // Initialize all Subsystem default commands.
         driveSubsystem   .setDefaultCommand(new DefaultDriveCommand   (driverController, driveSubsystem));
         intakeSubsystem  .setDefaultCommand(new DefaultIntakeCommand  (driverController, intakeSubsystem));
-        carouselSubsystem.setDefaultCommand(new DefaultCarouselCommand(driverController, carouselSubsystem));
         shooterSubsystem .setDefaultCommand(new DefaultShooterCommand (driverController, shooterSubsystem));
 
         // Initialize the autonomous chooser
@@ -79,7 +75,6 @@ public class RobotContainer {
         return new AutonomousCommand(
                 driveSubsystem,
                 intakeSubsystem,
-                carouselSubsystem,
                 shooterSubsystem,
                 autoChooser);
     }

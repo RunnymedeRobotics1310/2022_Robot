@@ -12,9 +12,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private final VictorSPX intakeTopMotor =
             new VictorSPX(IntakeConstants.INTAKE_TOP_MOTOR_ADDRESS);
 
-    //The motors on the bottom part of the intake thing.
-    private final VictorSPX intakeBottomMotor =
-            new VictorSPX(IntakeConstants.INTAKE_BOTTOM_MOTOR_ADDRESS);
+
 
 
     /** Creates a new IntakeSubsystem. */
@@ -24,7 +22,6 @@ public class IntakeSubsystem extends SubsystemBase {
         // gearbox is constructed, you might have to invert the left side instead.
         //for carousel, this is unknown at the moment
         intakeTopMotor.setInverted(IntakeConstants.INTAKE_TOP_MOTOR_REVERSED);//do we need a carousel motor reversed constant?
-        intakeBottomMotor.setInverted(IntakeConstants.INTAKE_BOTTOM_MOTOR_REVERSED);
 
     }
 
@@ -59,9 +56,8 @@ public class IntakeSubsystem extends SubsystemBase {
     public void resetEncoders() {
     }
 
-    public void setMotorSpeed(double topSpeed, double bottomSpeed) {
+    public void setMotorSpeed(double topSpeed) {
         intakeTopMotor.set(VictorSPXControlMode.PercentOutput, topSpeed);
-        intakeBottomMotor.set(VictorSPXControlMode.PercentOutput, bottomSpeed);
     }
 
     @Override

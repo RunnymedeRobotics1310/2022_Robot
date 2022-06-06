@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.AutoConstants;
-import frc.robot.subsystems.CarouselSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -15,7 +14,6 @@ public class AutonomousCommand extends SequentialCommandGroup {
     public AutonomousCommand(
             DriveSubsystem    driveSubsystem,
             IntakeSubsystem   intakeSubsystem,
-            CarouselSubsystem carouselSubsystem,
             ShooterSubsystem  shooterSubsystem,
             SendableChooser<String> autoChooser) {
 

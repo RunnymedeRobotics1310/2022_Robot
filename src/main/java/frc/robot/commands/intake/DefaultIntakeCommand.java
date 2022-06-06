@@ -33,10 +33,10 @@ public class DefaultIntakeCommand extends CommandBase {
 	public void execute() {
 		//TODO
 		if (driverController.getRawButton(1) == true) {
-			intakeSubsystem.setMotorSpeed(0.5, 0.5);
+			intakeSubsystem.setMotorSpeed(0.5);
 		}
 		else {
-			intakeSubsystem.setMotorSpeed(0, 0);
+			intakeSubsystem.setMotorSpeed(0);
 		}
 	}
 
