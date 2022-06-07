@@ -12,6 +12,8 @@ public class ShooterSubsystem extends SubsystemBase {
     private final CANSparkMax leftShooterMotor = new CANSparkMax(ShooterConstants.SHOOTER_LEFT_MOTOR_ADDRESS, MotorType.kBrushless);
     private final CANSparkMax rightShooterMotor = new CANSparkMax(ShooterConstants.SHOOTER_RIGHT_MOTOR_ADDRESS, MotorType.kBrushless);
 
+    private double setpoint = 0;
+    
     public ShooterSubsystem(){
         //Flips the motors 
         leftShooterMotor .setInverted(ShooterConstants.SHOOTER_LEFT_MOTOR_REVERSED);
@@ -19,34 +21,23 @@ public class ShooterSubsystem extends SubsystemBase {
     
     }
 
-    public double getAverageEncoderDistance() {
-        return (leftShooterMotor.getEncoder().getPosition() + rightShooterMotor.getEncoder().getPosition()) / 2;
-    }
-
-    public double getLeftEncoder() {
-        return leftShooterMotor.getEncoder().getPosition();
-    }
-
-    public double getRightEncoder() {
-        return rightShooterMotor.getEncoder().getPosition();
-    }
-
-    public void resetEncoders() {
-        leftShooterMotor.getEncoder().getPosition();
-        rightShooterMotor.getEncoder().getPosition();
-    }
-
     public void setMotorSpeeds(double speed) {
-
-      leftShooterMotor.set(speed);
-
-       rightShooterMotor.set(speed);
+    	this.setpoint = speed;
+    	leftShooterMotor.set(speed);
+    	rightShooterMotor.set(speed);
     }
 
+    public double getShooterSetpoint() {
+    	return setpoint;
+    }
+    
+    public double getShooterSpeed() {
+    	return leftShooterMotor.getEncoder().getVelocity();
+    }
+    
     @Override
     public void periodic() {
-
-        SmartDashboard.putNumber("Right Motor", rightShooterMotor.get());
-        SmartDashboard.putNumber("Left  Motor", leftShooterMotor.get());
+        SmartDashboard.putNumber("Motor Setpoint", getShooterSetpoint());
+        SmartDashboard.putNumber("Motor Speed", getShooterSpeed());
     }
 }

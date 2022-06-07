@@ -64,7 +64,7 @@ public final class Constants {
         public static final int SHOOTER_RIGHT_MOTOR_ADDRESS = 50;
         public static final int SHOOTER_LEFT_MOTOR_ADDRESS = 51;
         public static final boolean SHOOTER_RIGHT_MOTOR_REVERSED = false;
-        public static final boolean SHOOTER_LEFT_MOTOR_REVERSED = true;
+        public static final boolean SHOOTER_LEFT_MOTOR_REVERSED = !SHOOTER_RIGHT_MOTOR_REVERSED;
     }
 
     public static final class OiConstants {
