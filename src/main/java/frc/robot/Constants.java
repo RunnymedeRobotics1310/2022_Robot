@@ -59,6 +59,26 @@ public final class Constants {
         public static final boolean KICKER_MOTOR_REVERSED = true;
     }
 
+    public static final class ClimbConstants {
+
+        public static final int LEFT_TOP_LIMIT_SENSOR_ADDRESS = 9;
+        public static final int LEFT_BOTTOM_LIMIT_SENSOR_ADDRESS = 8;
+        public static final int RIGHT_TOP_LIMIT_SENSOR_ADDRESS = 7;
+        public static final int RIGHT_BOTTOM_LIMIT_SENSOR_ADDRESS = 6;
+
+        public static final int LEFT_CLIMB_MOTOR_ADDRESS = 61;
+        public static final boolean LEFT_CLIMB_MOTOR_REVERSED = false;
+
+        public static final int RIGHT_CLIMB_MOTOR_ADDRESS = 60;
+        public static final boolean RIGHT_CLIMB_MOTOR_REVERSED = false;
+
+
+
+
+
+    }
+
+
     public static final class OiConstants {
 
         public static final int DRIVER_CONTROLLER_PORT = 0;

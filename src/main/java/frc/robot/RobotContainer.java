@@ -12,9 +12,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OiConstants;
 import frc.robot.commands.auto.AutonomousCommand;
+import frc.robot.commands.climb.DefaultClimbCommand;
 import frc.robot.commands.drive.DefaultDriveCommand;
 import frc.robot.commands.intake.DefaultIntakeCommand;
 import frc.robot.commands.shooter.DefaultShooterCommand;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -32,6 +34,7 @@ public class RobotContainer {
     private final DriveSubsystem driveSubsystem       = new DriveSubsystem();
     private final IntakeSubsystem intakeSubsystem     = new IntakeSubsystem();
     private final ShooterSubsystem shooterSubsystem   = new ShooterSubsystem();
+    private final ClimbSubsystem climbSubsystem       = new ClimbSubsystem();
 
     // A chooser for autonomous commands
     SendableChooser<String> autoChooser = new SendableChooser<>();
@@ -48,6 +51,8 @@ public class RobotContainer {
         driveSubsystem   .setDefaultCommand(new DefaultDriveCommand   (driverController, driveSubsystem));
         intakeSubsystem  .setDefaultCommand(new DefaultIntakeCommand  (driverController, intakeSubsystem));
         shooterSubsystem .setDefaultCommand(new DefaultShooterCommand (driverController, shooterSubsystem));
+        climbSubsystem   .setDefaultCommand(new DefaultClimbCommand (driverController, climbSubsystem));
+
 
         // Initialize the autonomous chooser
         autoChooser.setDefaultOption(AutoConstants.AUTO_PATTERN_DO_NOTHING, AutoConstants.AUTO_PATTERN_DO_NOTHING);
