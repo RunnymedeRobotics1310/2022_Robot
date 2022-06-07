@@ -21,7 +21,7 @@ public class ShooterSubsystem extends SubsystemBase {
     
     }
 
-    public void setMotorSpeeds(double speed) {
+    public void setMotorSpeed(double speed) {
     	this.setpoint = speed;
     	leftShooterMotor.set(speed);
     	rightShooterMotor.set(speed);
@@ -31,13 +31,13 @@ public class ShooterSubsystem extends SubsystemBase {
     	return setpoint;
     }
     
-    public double getShooterSpeed() {
+    public double getShooterEncoderVelocity() {
     	return leftShooterMotor.getEncoder().getVelocity();
     }
     
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Motor Setpoint", getShooterSetpoint());
-        SmartDashboard.putNumber("Motor Speed", getShooterSpeed());
+        SmartDashboard.putNumber("Shooter Motor Setpoint", getShooterSetpoint());
+        SmartDashboard.putNumber("Shooter Encoder (rpm)", getShooterEncoderVelocity());
     }
 }

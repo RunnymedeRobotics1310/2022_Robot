@@ -28,7 +28,7 @@ public class DefaultShooterCommand extends CommandBase{
         double shoot =  driverController.getRawAxis(3);
         double shootSpeed = shoot;
 
-        shooterSubsystem.setMotorSpeeds(shootSpeed);
+        shooterSubsystem.setMotorSpeed(shootSpeed);
     }
 
 
