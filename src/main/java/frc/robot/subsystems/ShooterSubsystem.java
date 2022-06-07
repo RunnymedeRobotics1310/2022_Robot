@@ -13,50 +13,46 @@ public class ShooterSubsystem extends SubsystemBase {
     private final CANSparkMax shooterMotor   = new CANSparkMax(ShooterConstants.SHOOTER_MOTOR_ADDRESS, MotorType.kBrushless);
     private final CANSparkMax kickerMotor    = new CANSparkMax(ShooterConstants.KICKER_MOTOR_ADDRESS, MotorType.kBrushless);
 
-
+    private double shooterMotorSetpoint = 0;
+    private double kickerMotorSetpoint = 0;
+    
     public ShooterSubsystem(){
         //Initialize rotation direction
         shooterMotor .setInverted(ShooterConstants.SHOOTER_MOTOR_REVERSED);
         shooterMotor .setIdleMode(IdleMode.kBrake);
         kickerMotor  .setInverted(ShooterConstants.KICKER_MOTOR_REVERSED);
         kickerMotor  .setIdleMode(IdleMode.kBrake);
-
-
-    }
-
-
-
-    public double getShooterEncoder() {
-        return shooterMotor.getEncoder().getPosition();
-    }
-
-    public double getKickerEncoder() {
-        return kickerMotor.getEncoder().getPosition();
-    }
-
-
-    public void resetEncoders() {
-        shooterMotor.getEncoder().getPosition();
-        kickerMotor.getEncoder().getPosition();
     }
 
     public void setShooterMotorSpeed(double speed) {
 
-      shooterMotor.set(speed);
-
+    	shooterMotorSetpoint = speed;
+    	shooterMotor.set(speed);
+    
     }
 
+    public double getShooterEncoderVelocity() {
+    	return shooterMotor.getEncoder().getVelocity();
+    }
+    
     public void setKickerMotorSpeed(double speed) {
-
+    	kickerMotorSetpoint = speed;
         kickerMotor.set(speed);
   
       }
 
+    public double getKickerEncoderVelocity() {
+    	return kickerMotor.getEncoder().getVelocity();
+    }
+    
+
     @Override
     public void periodic() {
 
-        SmartDashboard.putNumber("Shooter Motor", shooterMotor.get());
-        SmartDashboard.putNumber("Kicker Motor", kickerMotor.get());
+        SmartDashboard.putNumber("Shooter Motor Setpoint", shooterMotorSetpoint);
+        SmartDashboard.putNumber("Shooter Encoder (rpm)", getShooterEncoderVelocity());
+        SmartDashboard.putNumber("Kicker Motor Setpoint", kickerMotorSetpoint);
+        SmartDashboard.putNumber("Kicker Encoder (rpm)", getKickerEncoderVelocity());
 
     }
 }
