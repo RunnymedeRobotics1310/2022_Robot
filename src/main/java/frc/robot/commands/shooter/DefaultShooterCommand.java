@@ -1,20 +1,19 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class DefaultShooterCommand extends CommandBase{
     
     private final ShooterSubsystem shooterSubsystem;
-    private final Joystick driverController;
+    private final XboxController driverController;
 	private boolean shooterOn = false;
 	private boolean previousState = false;
-	private final DigitalInput ballSensor = new DigitalInput(0);
 	private long shooterStartTime = 0;
 
-    public DefaultShooterCommand(Joystick driverController, ShooterSubsystem shooterSubsystem) {
+    public DefaultShooterCommand(XboxController driverController, ShooterSubsystem shooterSubsystem) {
         this.driverController = driverController;
 		this.shooterSubsystem = shooterSubsystem;
 
@@ -32,28 +31,28 @@ public class DefaultShooterCommand extends CommandBase{
 	// button #2 = B on controller
 	@Override
 	public void execute() {
-		if(driverController.getRawButton(2) && !previousState){
-			previousState = true;
-			shooterOn = !shooterOn;
-			shooterStartTime = System.currentTimeMillis();
-		}
-		else if(!driverController.getRawButton(2)){
-			previousState = false;
-		}
+		// if(driverController.getRawButton(2) && !previousState){
+		// 	previousState = true;
+		// 	shooterOn = !shooterOn;
+		// 	shooterStartTime = System.currentTimeMillis();
+		// }
+		// else if(!driverController.getRawButton(2)){
+		// 	previousState = false;
+		// }
 
-		if(shooterOn) {
-			shooterSubsystem.setShooterMotorSpeed(0.3);
-			if (System.currentTimeMillis() - shooterStartTime > 1000){
-				shooterSubsystem.setKickerMotorSpeed(0.3);
-			} 
-			// if (!ballSensor.get()){
-			// 	shooterOn = !shooterOn;
-			// }
-		}
-		else{
-			shooterSubsystem.setShooterMotorSpeed(0);
-			shooterSubsystem.setKickerMotorSpeed(0);
-		}
+		// if(shooterOn) {
+		// 	shooterSubsystem.setShooterMotorSpeed(0.3);
+		// 	if (System.currentTimeMillis() - shooterStartTime > 1000){
+		// 		shooterSubsystem.setKickerMotorSpeed(0.3);
+		// 	} 
+		// 	// if (!ballSensor.get()){
+		// 	// 	shooterOn = !shooterOn;
+		// 	// }
+		// }
+		// else{
+		// 	shooterSubsystem.setShooterMotorSpeed(0);
+		// 	shooterSubsystem.setKickerMotorSpeed(0);
+		// }
 	}
 
 	// Called once the command ends or is interrupted.

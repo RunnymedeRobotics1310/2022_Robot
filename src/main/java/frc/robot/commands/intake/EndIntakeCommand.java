@@ -1,16 +1,15 @@
-package frc.robot.commands.shooter;
+package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShootCommand extends CommandBase{
+public class EndIntakeCommand extends CommandBase{
 
-    private final ShooterSubsystem shooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
-    private long shotStartTime = 0;
+    private final ShooterSubsystem shooterSubsystem;
 
-    public ShootCommand(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem) {
+    public EndIntakeCommand(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem) {
         this.shooterSubsystem = shooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
 
@@ -23,9 +22,10 @@ public class ShootCommand extends CommandBase{
     public void initialize() {
 
         // Start the shooter motor and capture the start time
-        shooterSubsystem.setShooterMotorSpeed(0.3);
-        shotStartTime = System.currentTimeMillis();
-        intakeSubsystem.setRollerPiston(true);
+        shooterSubsystem.setKickerMotorSpeed(0);
+        intakeSubsystem.setRollerPiston(false);
+        intakeSubsystem.setHoodPiston(false);
+        intakeSubsystem.setMotorSpeed(0);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -34,28 +34,17 @@ public class ShootCommand extends CommandBase{
     @Override
     public void execute() {
 
-        if (System.currentTimeMillis() - shotStartTime > 1000) {
-            shooterSubsystem.setKickerMotorSpeed(0.5);
-        }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        shooterSubsystem.stop();
-        intakeSubsystem.setRollerPiston(false);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-
-        // Stop the shooter after 2 seconds
-        if (System.currentTimeMillis() - shotStartTime > 2000) {
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
 }

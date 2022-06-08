@@ -23,8 +23,6 @@ public final class Constants {
         public static final boolean LEFT_MOTOR_REVERSED = false;
         public static final boolean RIGHT_MOTOR_REVERSED = true;
 
-        public static final int[] LEFT_ENCODER_PORTS = new int[] { 0, 1 };
-        public static final int[] RIGHT_ENCODER_PORTS = new int[] { 2, 3 };
         public static final boolean LEFT_ENCODER_REVERSED = false;
         public static final boolean RIGHT_ENCODER_REVERSED = true;
 
@@ -40,16 +38,19 @@ public final class Constants {
 
     public static final class AutoConstants {
         public static final String AUTO_PATTERN_DO_NOTHING = "Do nothing";
+        public static final String AUTO_PATTERN_SHOOT = "Shoot";
+        public static final String AUTO_PATTERN_SHOOT_AND_MOVE = "Shoot and move";
+
     }
 
 
     public static final class IntakeConstants {
 
         public static final int     INTAKE_MOTOR_ADDRESS  = 30;
-        public static final boolean INTAKE_MOTOR_REVERSED = true;
+        public static final boolean INTAKE_MOTOR_REVERSED = false;
 
-        public static final int INTAKE_ROLLER_PISTON_ADDRESS = 2;
-        public static final int INTAKE_HOOD_PISTON_ADDRESS   = 0;
+        public static final int INTAKE_ROLLER_PISTON_ADDRESS = 0;
+        public static final int INTAKE_HOOD_PISTON_ADDRESS   = 2;
     }
 
     public static final class ShooterConstants{
@@ -59,6 +60,8 @@ public final class Constants {
 
         public static final int     KICKER_MOTOR_ADDRESS  = 50;
         public static final boolean KICKER_MOTOR_REVERSED = true;
+
+        public static final int BALL_SENSOR_ADDRESS = 0;
     }
 
     public static final class ClimbConstants {

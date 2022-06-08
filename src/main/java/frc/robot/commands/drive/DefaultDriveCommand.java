@@ -1,20 +1,20 @@
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DefaultDriveCommand extends CommandBase {
 
 	private final DriveSubsystem driveSubsystem;
-	private final Joystick driverController;
+	private final XboxController driverController;
 
 	/**
 	 * Creates a new ExampleCommand.
 	 *
 	 * @param driveSubsystem The subsystem used by this command.
 	 */
-	public DefaultDriveCommand(Joystick driverController, DriveSubsystem driveSubsystem) {
+	public DefaultDriveCommand(XboxController driverController, DriveSubsystem driveSubsystem) {
 
 		this.driverController = driverController;
 		this.driveSubsystem = driveSubsystem;
@@ -46,7 +46,7 @@ public class DefaultDriveCommand extends CommandBase {
 	//	double rightT = driverController.getRawAxis(3);
 		boolean boost = false;
 
-		if (driverController.getRawButton(5) || driverController.getRawButton(6)){
+		if (driverController.getLeftBumper() || driverController.getRightBumper()){
 			boost = true;
 		}
 			//Also tank drive: 

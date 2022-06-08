@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
@@ -15,6 +16,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     private double shooterMotorSetpoint = 0;
     private double kickerMotorSetpoint = 0;
+    private final DigitalInput ballSensor = new DigitalInput(ShooterConstants.BALL_SENSOR_ADDRESS);
 
     public ShooterSubsystem(){
         //Initialize rotation direction
@@ -22,6 +24,7 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterMotor .setIdleMode(IdleMode.kBrake);
         kickerMotor  .setInverted(ShooterConstants.KICKER_MOTOR_REVERSED);
         kickerMotor  .setIdleMode(IdleMode.kBrake);
+
     }
 
     public void setShooterMotorSpeed(double speed) {
@@ -29,6 +32,9 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterMotorSetpoint = speed;
         shooterMotor.set(speed);
 
+    }
+    public boolean getBallSensor(){
+        return !ballSensor.get();
     }
 
     public double getShooterEncoderVelocity() {
@@ -54,6 +60,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public void periodic() {
 
         SmartDashboard.putNumber("Shooter Motor Setpoint", shooterMotorSetpoint);
+        SmartDashboard.putBoolean("Ball Sensor", getBallSensor());
         SmartDashboard.putNumber("Shooter Encoder (rpm)", getShooterEncoderVelocity());
         SmartDashboard.putNumber("Kicker Motor Setpoint", kickerMotorSetpoint);
         SmartDashboard.putNumber("Kicker Encoder (rpm)", getKickerEncoderVelocity());

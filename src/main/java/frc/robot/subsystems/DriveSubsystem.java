@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,13 +27,13 @@ public class DriveSubsystem extends SubsystemBase {
         // result in both sides moving forward. Depending on how your robot's
         // gearbox is constructed, you might have to invert the left side instead.
         leftPrimaryMotor.setInverted(DriveConstants.LEFT_MOTOR_REVERSED);
-
+        leftPrimaryMotor.setIdleMode(IdleMode.kBrake);
         leftFollowerMotor.setInverted(DriveConstants.LEFT_MOTOR_REVERSED);
-
+        leftFollowerMotor.setIdleMode(IdleMode.kBrake);
         rightPrimaryMotor .setInverted(DriveConstants.RIGHT_MOTOR_REVERSED);
-       
+        rightPrimaryMotor.setIdleMode(IdleMode.kBrake);
         rightFollowerMotor.setInverted(DriveConstants.RIGHT_MOTOR_REVERSED);
-
+        rightFollowerMotor.setIdleMode(IdleMode.kBrake);
 
     }
 

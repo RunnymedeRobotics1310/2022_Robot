@@ -60,25 +60,25 @@ public class IntakeSubsystem extends SubsystemBase {
         return 0;
     }
 
-    public void setHoodPiston(boolean Rollered) {
+    public void setHoodPiston(boolean deploy) {
 
-        if (Rollered) {
-            intakeHoodValue = Value.kForward;
+        if (deploy) {
+            intakeHoodValue = Value.kReverse;
         }
         else {
-            intakeHoodValue = Value.kReverse;
+            intakeHoodValue = Value.kForward;
         }
 
         intakeHoodPiston.set(intakeHoodValue);
     }
 
-    public void setRollerPiston(boolean Rollered) {
+    public void setRollerPiston(boolean deploy) {
 
-        if (Rollered) {
-            intakeRollerValue = Value.kForward;
+        if (deploy) {
+            intakeRollerValue = Value.kReverse;
         }
         else {
-            intakeRollerValue = Value.kReverse;
+            intakeRollerValue = Value.kForward;
         }
 
         intakeRollerPiston.set(intakeRollerValue);

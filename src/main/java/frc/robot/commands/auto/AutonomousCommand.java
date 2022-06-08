@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.commands.drive.MoveBackCommand;
+import frc.robot.commands.shooter.ShootCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -35,6 +37,23 @@ public class AutonomousCommand extends SequentialCommandGroup {
             System.out.println("Do nothing auto selected");
             addCommands (
                     new InstantCommand()
+                    );
+            break;
+
+        case AutoConstants.AUTO_PATTERN_SHOOT:
+            // Do nothing
+            System.out.println("Do shoot selected");
+            addCommands (
+                    new ShootCommand(shooterSubsystem, intakeSubsystem)
+                    );
+            break;
+
+        case AutoConstants.AUTO_PATTERN_SHOOT_AND_MOVE:
+            // Do nothing
+            System.out.println("Do shoot and move selected");
+            addCommands (
+                    new ShootCommand(shooterSubsystem, intakeSubsystem),
+                    new MoveBackCommand(driveSubsystem)
                     );
             break;
 
