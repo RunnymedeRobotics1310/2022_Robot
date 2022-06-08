@@ -45,7 +45,17 @@ public class ClimbSubsystem extends SubsystemBase {
             leftMotor.set(ControlMode.PercentOutput, 0);
         }
 
-        rightMotor.set(ControlMode.PercentOutput, 0);
+        if (speed < 0 && rightBottomLimit.get() != AT_LIMIT) {
+            rightMotor.set(ControlMode.PercentOutput,speed);
+        }
+        else if (speed > 0 && rightTopLimit.get() != AT_LIMIT) {
+            rightMotor.set(ControlMode.PercentOutput,speed);
+        }
+        else {
+            // Stop the motors
+            rightMotor.set(ControlMode.PercentOutput, 0);
+        }
+
   
     }
 

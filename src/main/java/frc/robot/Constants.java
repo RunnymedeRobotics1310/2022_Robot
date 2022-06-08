@@ -75,7 +75,7 @@ public final class Constants {
         public static final boolean LEFT_CLIMB_MOTOR_REVERSED = false;
 
         public static final int     RIGHT_CLIMB_MOTOR_ADDRESS  = 60;
-        public static final boolean RIGHT_CLIMB_MOTOR_REVERSED = false;
+        public static final boolean RIGHT_CLIMB_MOTOR_REVERSED = true;
     }
 
     public static final class OiConstants {
