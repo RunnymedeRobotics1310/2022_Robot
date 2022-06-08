@@ -45,39 +45,35 @@ public final class Constants {
 
     public static final class IntakeConstants {
 
-        public static final int INTAKE_TOP_MOTOR_ADDRESS = 30;
-        public static final boolean INTAKE_TOP_MOTOR_REVERSED = true;
+        public static final int     INTAKE_MOTOR_ADDRESS  = 30;
+        public static final boolean INTAKE_MOTOR_REVERSED = true;
 
+        public static final int INTAKE_ROLLER_PISTON_ADDRESS = 2;
+        public static final int INTAKE_HOOD_PISTON_ADDRESS   = 0;
     }
 
     public static final class ShooterConstants{
 
-        public static final int SHOOTER_MOTOR_ADDRESS = 51;
+        public static final int     SHOOTER_MOTOR_ADDRESS  = 51;
         public static final boolean SHOOTER_MOTOR_REVERSED = true;
 
-        public static final int KICKER_MOTOR_ADDRESS = 50;
+        public static final int     KICKER_MOTOR_ADDRESS  = 50;
         public static final boolean KICKER_MOTOR_REVERSED = true;
     }
 
     public static final class ClimbConstants {
 
-        public static final int LEFT_TOP_LIMIT_SENSOR_ADDRESS = 9;
-        public static final int LEFT_BOTTOM_LIMIT_SENSOR_ADDRESS = 8;
-        public static final int RIGHT_TOP_LIMIT_SENSOR_ADDRESS = 7;
+        public static final int LEFT_TOP_LIMIT_SENSOR_ADDRESS     = 9;
+        public static final int LEFT_BOTTOM_LIMIT_SENSOR_ADDRESS  = 8;
+        public static final int RIGHT_TOP_LIMIT_SENSOR_ADDRESS    = 7;
         public static final int RIGHT_BOTTOM_LIMIT_SENSOR_ADDRESS = 6;
 
-        public static final int LEFT_CLIMB_MOTOR_ADDRESS = 61;
+        public static final int     LEFT_CLIMB_MOTOR_ADDRESS  = 61;
         public static final boolean LEFT_CLIMB_MOTOR_REVERSED = false;
 
-        public static final int RIGHT_CLIMB_MOTOR_ADDRESS = 60;
+        public static final int     RIGHT_CLIMB_MOTOR_ADDRESS  = 60;
         public static final boolean RIGHT_CLIMB_MOTOR_REVERSED = false;
-
-
-
-
-
     }
-
 
     public static final class OiConstants {
 

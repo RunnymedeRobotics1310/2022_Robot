@@ -3,26 +3,43 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
     // The motors on the top part of the intake thing.
-    private final VictorSPX intakeTopMotor =
-            new VictorSPX(IntakeConstants.INTAKE_TOP_MOTOR_ADDRESS);
+    private final VictorSPX intakeMotor =
+            new VictorSPX(IntakeConstants.INTAKE_MOTOR_ADDRESS);
 
+    private double intakeMotorSetpoint = 0;
 
+    private DoubleSolenoid intakeRollerPiston = new DoubleSolenoid(
+            PneumaticsModuleType.CTREPCM,
+            IntakeConstants.INTAKE_ROLLER_PISTON_ADDRESS,
+            IntakeConstants.INTAKE_ROLLER_PISTON_ADDRESS + 1);
 
+    Value intakeRollerValue = Value.kOff;
+
+    private DoubleSolenoid intakeHoodPiston = new DoubleSolenoid(
+            PneumaticsModuleType.CTREPCM,
+            IntakeConstants.INTAKE_HOOD_PISTON_ADDRESS,
+            IntakeConstants.INTAKE_HOOD_PISTON_ADDRESS + 1);
+
+    Value intakeHoodValue = Value.kOff;
 
     /** Creates a new IntakeSubsystem. */
     public IntakeSubsystem() {
-        // We need to invert one side of the drivetrain so that positive voltages
-        // result in both sides moving forward. Depending on how your robot's
-        // gearbox is constructed, you might have to invert the left side instead.
-        //for carousel, this is unknown at the moment
-        intakeTopMotor.setInverted(IntakeConstants.INTAKE_TOP_MOTOR_REVERSED);//do we need a carousel motor reversed constant?
 
+        intakeMotor.setInverted(IntakeConstants.INTAKE_MOTOR_REVERSED);
+
+        // Default to intake retracted
+        setHoodPiston(false);
+        setRollerPiston(false);
     }
 
     /**
@@ -43,6 +60,30 @@ public class IntakeSubsystem extends SubsystemBase {
         return 0;
     }
 
+    public void setHoodPiston(boolean Rollered) {
+
+        if (Rollered) {
+            intakeHoodValue = Value.kForward;
+        }
+        else {
+            intakeHoodValue = Value.kReverse;
+        }
+
+        intakeHoodPiston.set(intakeHoodValue);
+    }
+
+    public void setRollerPiston(boolean Rollered) {
+
+        if (Rollered) {
+            intakeRollerValue = Value.kForward;
+        }
+        else {
+            intakeRollerValue = Value.kReverse;
+        }
+
+        intakeRollerPiston.set(intakeRollerValue);
+    }
+
     /**
      * Gets the right drive encoder.
      *
@@ -56,14 +97,19 @@ public class IntakeSubsystem extends SubsystemBase {
     public void resetEncoders() {
     }
 
-    public void setMotorSpeed(double topSpeed) {
-        intakeTopMotor.set(VictorSPXControlMode.PercentOutput, topSpeed);
+    /**
+     * Set the speed on the intake motor
+     * @param speed in the range -1.0 to 1.0, 0 = stopped;
+     */
+    public void setMotorSpeed(double speed) {
+        intakeMotorSetpoint = speed;
+        intakeMotor.set(VictorSPXControlMode.PercentOutput, speed);
     }
 
     @Override
     public void periodic() {
-
-        //        SmartDashboard.putNumber("Right Motor", rightMotors.get());
-        //        SmartDashboard.putNumber("Left  Motor", leftMotors.get());
+        SmartDashboard.putNumber("Intake Motor",  intakeMotorSetpoint);
+        SmartDashboard.putString("Intake Hood",   intakeHoodValue.toString());
+        SmartDashboard.putString("Intake Roller", intakeRollerValue.toString());
     }
 }
