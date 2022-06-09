@@ -5,18 +5,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OiConstants;
 import frc.robot.commands.auto.AutonomousCommand;
-import frc.robot.commands.carousel.DefaultCarouselCommand;
 import frc.robot.commands.drive.DefaultDriveCommand;
-import frc.robot.commands.intake.DefaultIntakeCommand;
-import frc.robot.commands.shooter.DefaultShooterCommand;
-import frc.robot.subsystems.CarouselSubsystem;
+import frc.robot.commands.intake.EndIntakeCommand;
+import frc.robot.commands.intake.StartIntakeCommand;
+import frc.robot.commands.shooter.ShootCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -33,14 +34,13 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveSubsystem driveSubsystem       = new DriveSubsystem();
     private final IntakeSubsystem intakeSubsystem     = new IntakeSubsystem();
-    private final CarouselSubsystem carouselSubsystem = new CarouselSubsystem();
     private final ShooterSubsystem shooterSubsystem   = new ShooterSubsystem();
 
     // A chooser for autonomous commands
     SendableChooser<String> autoChooser = new SendableChooser<>();
 
     // The driver's controller
-    private final Joystick driverController = new Joystick(OiConstants.DRIVER_CONTROLLER_PORT);
+    private final XboxController driverController = new XboxController(OiConstants.DRIVER_CONTROLLER_PORT);
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -49,12 +49,13 @@ public class RobotContainer {
 
         // Initialize all Subsystem default commands.
         driveSubsystem   .setDefaultCommand(new DefaultDriveCommand   (driverController, driveSubsystem));
-        intakeSubsystem  .setDefaultCommand(new DefaultIntakeCommand  (driverController, intakeSubsystem));
-        carouselSubsystem.setDefaultCommand(new DefaultCarouselCommand(driverController, carouselSubsystem));
-        shooterSubsystem .setDefaultCommand(new DefaultShooterCommand (driverController, shooterSubsystem));
+        intakeSubsystem.initSendable(null);
 
         // Initialize the autonomous chooser
         autoChooser.setDefaultOption(AutoConstants.AUTO_PATTERN_DO_NOTHING, AutoConstants.AUTO_PATTERN_DO_NOTHING);
+        SmartDashboard.putData(autoChooser);
+        autoChooser.addOption(AutoConstants.AUTO_PATTERN_SHOOT, AutoConstants.AUTO_PATTERN_SHOOT);
+        autoChooser.addOption(AutoConstants.AUTO_PATTERN_SHOOT_AND_MOVE, AutoConstants.AUTO_PATTERN_SHOOT_AND_MOVE);
 
         // Configure the button bindings
         configureButtonBindings();
@@ -67,6 +68,19 @@ public class RobotContainer {
      * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+
+        // Button map for Driver Stick
+        Button shootButton = new JoystickButton(driverController, XboxController.Button.kY.value);
+        Button intakeStartButton = new JoystickButton(driverController, XboxController.Button.kA.value);
+        Button intakeStopButton = new JoystickButton(driverController, XboxController.Button.kB.value);
+
+
+
+        // Button binding
+        shootButton.whenPressed(new ShootCommand(shooterSubsystem, intakeSubsystem));
+        intakeStartButton.whenPressed(new StartIntakeCommand(shooterSubsystem, intakeSubsystem));
+        intakeStopButton.whenPressed(new EndIntakeCommand(shooterSubsystem, intakeSubsystem));
+
     }
 
     /**
@@ -79,7 +93,6 @@ public class RobotContainer {
         return new AutonomousCommand(
                 driveSubsystem,
                 intakeSubsystem,
-                carouselSubsystem,
                 shooterSubsystem,
                 autoChooser);
     }
