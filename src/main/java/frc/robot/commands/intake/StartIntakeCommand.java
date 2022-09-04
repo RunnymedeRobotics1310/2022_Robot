@@ -21,13 +21,12 @@ public class StartIntakeCommand extends CommandBase{
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
         // Start the shooter motor and capture the start time
-        shotStartTime = System.currentTimeMillis();
+        shotStartTime = System.currentTimeMillis(); 
         shooterSubsystem.setKickerMotorSpeed(0.3);
-        intakeSubsystem.setRollerPiston(true);
         intakeSubsystem.setHoodPiston(true);
-        intakeSubsystem.setMotorSpeed(0.5);
+        intakeSubsystem.setMotorSpeed(0.675);
+        intakeSubsystem.setRollerPiston(true);   
     }
 
     // Called every time the scheduler runs while the command is scheduled.

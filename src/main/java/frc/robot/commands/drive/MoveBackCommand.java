@@ -6,7 +6,9 @@ import frc.robot.subsystems.DriveSubsystem;
 public class MoveBackCommand extends CommandBase{
 
     private final DriveSubsystem driveSubsystem;
-    private long shotStartTime = 0;
+    //private long shotStartTime = 0;
+    private double originalEncoderCounts;
+    private final float distanceToDrive = 50.0f;
 
     public MoveBackCommand(DriveSubsystem driveSubsystem) {
         this.driveSubsystem = driveSubsystem;
@@ -20,7 +22,8 @@ public class MoveBackCommand extends CommandBase{
     public void initialize() {
 
         // Start the shooter motor and capture the start time
-        shotStartTime = System.currentTimeMillis();
+        //shotStartTime = System.currentTimeMillis();
+        originalEncoderCounts = driveSubsystem.getAverageEncoderDistance();
         driveSubsystem.setMotorSpeeds(-0.5, -0.5);
     }
 
@@ -29,7 +32,12 @@ public class MoveBackCommand extends CommandBase{
     // button #2 = B on controller
     @Override
     public void execute() {
-
+        if (driveSubsystem.getLeftEncoder() * driveSubsystem.COUNTS_TO_INCHES > distanceToDrive) {
+            driveSubsystem.setLeftMotorSpeed(0);
+        }
+        if (driveSubsystem.getRightEncoder() * driveSubsystem.COUNTS_TO_INCHES > distanceToDrive) {
+            driveSubsystem.setRightMotorSpeed(0);
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -44,7 +52,12 @@ public class MoveBackCommand extends CommandBase{
     public boolean isFinished() {
 
         // Stop moving after 2 seconds
-        if (System.currentTimeMillis() - shotStartTime > 2000) {
+        /*if (System.currentTimeMillis() - shotStartTime > 2000) {
+            return true;
+        }*/
+
+        // Stop moving after getting over the line
+        if ((originalEncoderCounts - driveSubsystem.getAverageEncoderDistance()) * driveSubsystem.COUNTS_TO_INCHES > 50.0f) {
             return true;
         }
 

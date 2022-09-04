@@ -64,7 +64,9 @@ public class ClimbSubsystem extends SubsystemBase {
 
         SmartDashboard.putBoolean("Climb Top-L Limit", leftTopLimit.get());
         SmartDashboard.putBoolean("Climb Bot-L Limit", leftBottomLimit.get());
-        SmartDashboard.putNumber("CLimb Speed", climbSpeed);
+        SmartDashboard.putBoolean("Climb Top-R Limit", rightTopLimit.get());
+        SmartDashboard.putBoolean("Climb Bot-R Limit", rightBottomLimit.get());
+        SmartDashboard.putNumber("Climb Speed", climbSpeed);
     }
     
 }

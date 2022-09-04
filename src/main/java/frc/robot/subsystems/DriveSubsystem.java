@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -11,15 +12,18 @@ import frc.robot.Constants.DriveConstants;
 public class DriveSubsystem extends SubsystemBase {
 
     // The motors on the left side of the drive.
-    private final CANSparkMax leftPrimaryMotor= new CANSparkMax(DriveConstants.LEFT_MOTOR_PORT, MotorType.kBrushless);
-
-    private final CANSparkMax leftFollowerMotor= new CANSparkMax(DriveConstants.LEFT_MOTOR_PORT+1, MotorType.kBrushless);
+    private final CANSparkMax leftPrimaryMotor = new CANSparkMax(DriveConstants.LEFT_MOTOR_PORT, MotorType.kBrushless);
+    private final CANSparkMax leftFollowerMotor = new CANSparkMax(DriveConstants.LEFT_MOTOR_PORT+1, MotorType.kBrushless);
 
     // The motors on the right side of the drive.
-    private final CANSparkMax rightPrimaryMotor =
-            new CANSparkMax(DriveConstants.RIGHT_MOTOR_PORT, MotorType.kBrushless);
-    private final CANSparkMax rightFollowerMotor =
-            new CANSparkMax(DriveConstants.RIGHT_MOTOR_PORT+1, MotorType.kBrushless);
+    private final CANSparkMax rightPrimaryMotor = new CANSparkMax(DriveConstants.RIGHT_MOTOR_PORT, MotorType.kBrushless);
+    private final CANSparkMax rightFollowerMotor = new CANSparkMax(DriveConstants.RIGHT_MOTOR_PORT+1, MotorType.kBrushless);
+
+    // The encoders for left + right motor
+    private final RelativeEncoder rightEncoder = rightPrimaryMotor.getEncoder();
+    private final RelativeEncoder leftEncoder = leftPrimaryMotor.getEncoder();
+
+    public final float COUNTS_TO_INCHES = 1.333f;
 
     /** Creates a new DriveSubsystem. */
     public DriveSubsystem() {
@@ -35,6 +39,8 @@ public class DriveSubsystem extends SubsystemBase {
         rightFollowerMotor.setInverted(DriveConstants.RIGHT_MOTOR_REVERSED);
         rightFollowerMotor.setIdleMode(IdleMode.kBrake);
 
+        // Setting both encoders to 0 for my sanity
+        resetEncoders();
     }
 
     /**
@@ -43,8 +49,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return the average of the two encoder readings
      */
     public double getAverageEncoderDistance() {
-        // return (leftPrimaryMotor.getEncoder().getPosition() + rightPrimaryMotor.getEncoder().getPosition()) / 2;
-        return 0;
+        return (getLeftEncoder() + getRightEncoder()) / 2;
     }
 
     /**
@@ -53,8 +58,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return the left drive encoder
      */
     public double getLeftEncoder() {
-        // return leftPrimaryMotor.getEncoder().getPosition();
-        return 0;
+        return leftEncoder.getPosition();
     }
 
     /**
@@ -63,17 +67,28 @@ public class DriveSubsystem extends SubsystemBase {
      * @return the right drive encoder
      */
     public double getRightEncoder() {
-        // return rightPrimaryMotor.getEncoder().getPosition();
-        return 0;
-    }
-// CHECK THIS, MIGHT NOT WORK???
-    /** Resets the drive encoders to currently read a position of 0. */ 
-    public void resetEncoders() {
-        leftPrimaryMotor.getEncoder().getPosition();
-        rightPrimaryMotor.getEncoder().getPosition();
+        return rightEncoder.getPosition();
     }
 
+    /**  Resets the drive encoders to currently read a position of 0. */
+    public void resetEncoders() {
+        rightEncoder.setPosition(0);
+        leftEncoder.setPosition(0);
+    }
+
+    /**
+     * Set the left and right speed of the primary and follower motors
+     * @param leftSpeed
+     * @param rightSpeed
+     */
     public void setMotorSpeeds(double leftSpeed, double rightSpeed) {
+        if (Math.abs(leftSpeed) < 0.05) {
+			leftSpeed = 0;
+		}
+
+		if (Math.abs(rightSpeed) < 0.05) {
+			rightSpeed = 0;
+		}
 
         leftPrimaryMotor.set(leftSpeed);
         leftFollowerMotor.set(leftSpeed);
@@ -82,10 +97,24 @@ public class DriveSubsystem extends SubsystemBase {
         rightFollowerMotor.set(rightSpeed);
     }
 
+    public void setLeftMotorSpeed(double speed) {
+        leftPrimaryMotor.set(speed);
+        leftFollowerMotor.set(speed);
+    }
+
+    public void setRightMotorSpeed(double speed) {
+        rightPrimaryMotor.set(speed);
+        rightFollowerMotor.set(speed);
+    }
+
     @Override
     public void periodic() {
-
         SmartDashboard.putNumber("Right Motor", rightPrimaryMotor.get());
         SmartDashboard.putNumber("Left  Motor", leftPrimaryMotor.get());
+
+        SmartDashboard.putNumber("Right Encoder", getRightEncoder());
+        SmartDashboard.putNumber("Left Encoder", getLeftEncoder());
+
+        SmartDashboard.putNumber("Distance", getAverageEncoderDistance() * COUNTS_TO_INCHES);
     }
 }

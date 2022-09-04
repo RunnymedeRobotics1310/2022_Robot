@@ -39,6 +39,7 @@ public final class Constants {
     public static final class AutoConstants {
         public static final String AUTO_PATTERN_DO_NOTHING = "Do nothing";
         public static final String AUTO_PATTERN_SHOOT = "Shoot";
+        public static final String AUTO_PATTERN_MOVE = "Move";
         public static final String AUTO_PATTERN_SHOOT_AND_MOVE = "Shoot and move";
 
     }

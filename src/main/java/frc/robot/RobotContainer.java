@@ -21,6 +21,7 @@ import frc.robot.commands.intake.EndIntakeCommand;
 import frc.robot.commands.intake.StartIntakeCommand;
 import frc.robot.commands.shooter.DefaultShooterCommand;
 import frc.robot.commands.shooter.ShootCommand;
+import frc.robot.commands.shooter.ShootLowCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -63,6 +64,7 @@ public class RobotContainer {
         autoChooser.setDefaultOption(AutoConstants.AUTO_PATTERN_DO_NOTHING, AutoConstants.AUTO_PATTERN_DO_NOTHING);
         SmartDashboard.putData(autoChooser);
         autoChooser.addOption(AutoConstants.AUTO_PATTERN_SHOOT, AutoConstants.AUTO_PATTERN_SHOOT);
+        autoChooser.addOption(AutoConstants.AUTO_PATTERN_MOVE, AutoConstants.AUTO_PATTERN_MOVE);
         autoChooser.addOption(AutoConstants.AUTO_PATTERN_SHOOT_AND_MOVE, AutoConstants.AUTO_PATTERN_SHOOT_AND_MOVE);
 
 
@@ -80,13 +82,13 @@ public class RobotContainer {
 
         // Button map for Driver Stick
         Button shootButton = new JoystickButton(driverController, XboxController.Button.kY.value);
+        Button shootLowButton = new JoystickButton(driverController, XboxController.Button.kX.value);
         Button intakeStartButton = new JoystickButton(driverController, XboxController.Button.kA.value);
         Button intakeStopButton = new JoystickButton(driverController, XboxController.Button.kB.value);
 
-
-
         // Button binding
         shootButton.whenPressed(new ShootCommand(shooterSubsystem, intakeSubsystem));
+        shootLowButton.whenPressed(new ShootLowCommand(shooterSubsystem, intakeSubsystem));
         intakeStartButton.whenPressed(new StartIntakeCommand(shooterSubsystem, intakeSubsystem));
         intakeStopButton.whenPressed(new EndIntakeCommand(shooterSubsystem, intakeSubsystem));
 

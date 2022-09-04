@@ -33,7 +33,7 @@ public class DefaultDriveCommand extends CommandBase {
 	public void execute() {
 
 		// What else to put here ladies and gentlemen?
-		
+
 		double leftY = driverController.getRawAxis(1);
 		double leftX = driverController.getRawAxis(0);
 		double leftSpeed = leftY * -1 + leftX;
@@ -46,7 +46,7 @@ public class DefaultDriveCommand extends CommandBase {
 	//	double rightT = driverController.getRawAxis(3);
 		boolean boost = false;
 
-		if (driverController.getLeftBumper() || driverController.getRightBumper()){
+		if (driverController.getRightBumper()){
 			boost = true;
 		}
 			//Also tank drive: 
@@ -62,6 +62,17 @@ public class DefaultDriveCommand extends CommandBase {
 			driveSubsystem.setMotorSpeeds(leftSpeed/2, rightSpeed/2);
 		} else {
 			driveSubsystem.setMotorSpeeds(leftSpeed, rightSpeed);
+		}
+
+
+		//stops the robot
+		boolean deadStop = false;
+		if (driverController.getLeftBumper()) {
+			deadStop = true;
+		}
+
+		if (deadStop) {
+			driveSubsystem.setMotorSpeeds(0, 0);
 		}
 	}
 

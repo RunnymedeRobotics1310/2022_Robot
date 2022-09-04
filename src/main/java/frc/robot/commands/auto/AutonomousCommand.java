@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.drive.MoveBackCommand;
 import frc.robot.commands.shooter.ShootCommand;
+import frc.robot.commands.shooter.ShootLowCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -25,42 +26,41 @@ public class AutonomousCommand extends SequentialCommandGroup {
         // patterns, if not, then do nothing
         if (selectedAuto == null) {
             System.out.println("*** ERROR - NULL auto selected ***");
-            addCommands (new InstantCommand());
+            addCommands(new InstantCommand());
             return;
         }
 
         // Placeholder for auto commands
-        switch (autoChooser.getSelected()) {
+        switch (selectedAuto) {
 
         case AutoConstants.AUTO_PATTERN_DO_NOTHING:
             // Do nothing
             System.out.println("Do nothing auto selected");
-            addCommands (
-                    new InstantCommand()
-                    );
+            addCommands(new InstantCommand());
             break;
 
         case AutoConstants.AUTO_PATTERN_SHOOT:
             // Do nothing
             System.out.println("Do shoot selected");
-            addCommands (
-                    new ShootCommand(shooterSubsystem, intakeSubsystem)
-                    );
+            addCommands(new ShootCommand(shooterSubsystem, intakeSubsystem));
+            break;
+
+        case AutoConstants.AUTO_PATTERN_MOVE:
+            // Do nothing
+            System.out.println("Do move selected");
+            addCommands(new MoveBackCommand(driveSubsystem));
             break;
 
         case AutoConstants.AUTO_PATTERN_SHOOT_AND_MOVE:
             // Do nothing
             System.out.println("Do shoot and move selected");
-            addCommands (
-                    new ShootCommand(shooterSubsystem, intakeSubsystem),
-                    new MoveBackCommand(driveSubsystem)
-                    );
+            addCommands(new ShootLowCommand(shooterSubsystem, intakeSubsystem), new MoveBackCommand(driveSubsystem));
             break;
 
         default:
             // How did we get here?
             System.out.println("Auto selection(" + selectedAuto + ") was not programmed!");
-            addCommands (new InstantCommand());
+            addCommands(new InstantCommand());
         }
     }
 

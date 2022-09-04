@@ -4,21 +4,21 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShootCommand extends CommandBase{
+public class ShootLowCommand extends CommandBase {
 
     private final ShooterSubsystem shooterSubsystem;
     private final IntakeSubsystem intakeSubsystem;
     private long shotStartTime = 0;
 
-    private final float SHOOTER_SPEED = 0.75f;
+    private final float SHOOTER_SPEED = 0.40f;
     private final float KICKER_SPEED = 0.75f;
 
-    private final int EXCECUTE_TIME_SECONDS = 3;
-    private final int FINISH_TIME_SECONDS = 4;
+    private final int EXCECUTE_TIME_SECONDS = 2;
+    private final int FINISH_TIME_SECONDS = 3;
 
     private final int MILLISECONDS_TO_SECONDS = 1000;
 
-    public ShootCommand(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem) {
+    public ShootLowCommand(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem) {
         this.shooterSubsystem = shooterSubsystem;
         this.intakeSubsystem = intakeSubsystem;
 
@@ -58,7 +58,7 @@ public class ShootCommand extends CommandBase{
     @Override
     public boolean isFinished() {
 
-        //return (System.currentTimeMillis() - shotStartTime > finishTime) ? true : false;
+        //return System.currentTimeMillis() - shotStartTime > (FINISH_TIME_SECONDS * MILLISECONDS_TO_SECONDS);
 
         // Stop the shooter after a set time
         if (System.currentTimeMillis() - shotStartTime > (FINISH_TIME_SECONDS * MILLISECONDS_TO_SECONDS)) { 
