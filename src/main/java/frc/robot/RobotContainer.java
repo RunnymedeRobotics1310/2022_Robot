@@ -19,6 +19,7 @@ import frc.robot.commands.drive.DefaultDriveCommand;
 import frc.robot.commands.intake.DefaultIntakeCommand;
 import frc.robot.commands.intake.EndIntakeCommand;
 import frc.robot.commands.intake.StartIntakeCommand;
+import frc.robot.commands.intake.ExtakeCommand;
 import frc.robot.commands.shooter.DefaultShooterCommand;
 import frc.robot.commands.shooter.ShootCommand;
 import frc.robot.commands.shooter.ShootLowCommand;
@@ -85,13 +86,14 @@ public class RobotContainer {
         Button shootLowButton = new JoystickButton(driverController, XboxController.Button.kX.value);
         Button intakeStartButton = new JoystickButton(driverController, XboxController.Button.kA.value);
         Button intakeStopButton = new JoystickButton(driverController, XboxController.Button.kB.value);
+        Button extakeButton = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
 
         // Button binding
         shootButton.whenPressed(new ShootCommand(shooterSubsystem, intakeSubsystem));
         shootLowButton.whenPressed(new ShootLowCommand(shooterSubsystem, intakeSubsystem));
         intakeStartButton.whenPressed(new StartIntakeCommand(shooterSubsystem, intakeSubsystem));
         intakeStopButton.whenPressed(new EndIntakeCommand(shooterSubsystem, intakeSubsystem));
-
+        extakeButton.whenPressed(new ExtakeCommand(shooterSubsystem, intakeSubsystem));
     }
 
     /**

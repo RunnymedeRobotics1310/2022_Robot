@@ -41,7 +41,6 @@ public final class Constants {
         public static final String AUTO_PATTERN_SHOOT = "Shoot";
         public static final String AUTO_PATTERN_MOVE = "Move";
         public static final String AUTO_PATTERN_SHOOT_AND_MOVE = "Shoot and move";
-
     }
 
 
@@ -54,7 +53,7 @@ public final class Constants {
         public static final int INTAKE_HOOD_PISTON_ADDRESS   = 2;
     }
 
-    public static final class ShooterConstants{
+    public static final class ShooterConstants {
 
         public static final int     SHOOTER_MOTOR_ADDRESS  = 51;
         public static final boolean SHOOTER_MOTOR_REVERSED = true;

@@ -4,8 +4,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class DefaultShooterCommand extends CommandBase{
-    
+
+public class DefaultShooterCommand extends CommandBase {
+
     private final ShooterSubsystem shooterSubsystem;
     private final XboxController driverController;
 	private boolean shooterOn = false;

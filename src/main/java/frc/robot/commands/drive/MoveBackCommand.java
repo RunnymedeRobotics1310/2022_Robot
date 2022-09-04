@@ -57,7 +57,7 @@ public class MoveBackCommand extends CommandBase{
         }*/
 
         // Stop moving after getting over the line
-        if ((originalEncoderCounts - driveSubsystem.getAverageEncoderDistance()) * driveSubsystem.COUNTS_TO_INCHES > 50.0f) {
+        if ((originalEncoderCounts - driveSubsystem.getAverageEncoderDistance()) * driveSubsystem.COUNTS_TO_INCHES > distanceToDrive) {
             return true;
         }
 
