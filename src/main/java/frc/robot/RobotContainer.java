@@ -86,7 +86,7 @@ public class RobotContainer {
         Button shootLowButton = new JoystickButton(driverController, XboxController.Button.kX.value);
         Button intakeStartButton = new JoystickButton(driverController, XboxController.Button.kA.value);
         Button intakeStopButton = new JoystickButton(driverController, XboxController.Button.kB.value);
-        Button extakeButton = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
+        Button extakeButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
 
         // Button binding
         shootButton.whenPressed(new ShootCommand(shooterSubsystem, intakeSubsystem));
