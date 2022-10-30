@@ -9,6 +9,8 @@ public class DefaultDriveCommand extends CommandBase {
 	private final DriveSubsystem driveSubsystem;
 	private final XboxController driverController;
 
+	private final double DRIVE_FILTER_VALUE = 0.075f;
+
 	/**
 	 * Creates a new ExampleCommand.
 	 *
@@ -34,8 +36,9 @@ public class DefaultDriveCommand extends CommandBase {
 
 		// What else to put here ladies and gentlemen?
 
-		double leftY = (Math.abs(driverController.getRawAxis(1)) < 0.075f) ? 0.0f : driverController.getRawAxis(1); 
-		double leftX = (Math.abs(driverController.getRawAxis(0)) < 0.075f) ? 0.0f : driverController.getRawAxis(0);
+		// Filter out low input values to reduce drivetrain drift
+		double leftY = (Math.abs(driverController.getRawAxis(1)) < DRIVE_FILTER_VALUE) ? 0.0f : driverController.getRawAxis(1); 
+		double leftX = (Math.abs(driverController.getRawAxis(0)) < DRIVE_FILTER_VALUE) ? 0.0f : driverController.getRawAxis(0);
 		double leftSpeed = leftY * -1 + leftX;
 		double rightSpeed = leftY * -1 - leftX;
 
@@ -59,7 +62,7 @@ public class DefaultDriveCommand extends CommandBase {
 
 		if (!boost) {
 			//Not sure if this is a good speed!
-			driveSubsystem.setMotorSpeeds(leftSpeed/2, rightSpeed/2);
+			driveSubsystem.setMotorSpeeds(leftSpeed / 2, rightSpeed / 2);
 		} else {
 			driveSubsystem.setMotorSpeeds(leftSpeed, rightSpeed);
 		}

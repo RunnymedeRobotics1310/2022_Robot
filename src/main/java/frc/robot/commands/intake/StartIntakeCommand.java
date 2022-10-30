@@ -8,11 +8,13 @@ public class StartIntakeCommand extends CommandBase{
 
     private final IntakeSubsystem intakeSubsystem;
     private final ShooterSubsystem shooterSubsystem;
-    private long shotStartTime = 0;
-    private final float intakeStartSpeed = 0.65f;
-    private final float intakeOffsetSpeed = 0.20f;
-    private final int intakeSpeedTimer = 700; // Multiple of 100
-    private boolean isOffsetAdded = false;
+
+    private final float intakeStartSpeed = 0.75f;
+
+    // private long shotStartTime = 0;
+    // private final float intakeOffsetSpeed = 0.20f;
+    // private final int intakeSpeedTimer = 700; // Multiple of 100
+    // private boolean isOffsetAdded = false;
 
     public StartIntakeCommand(ShooterSubsystem shooterSubsystem, IntakeSubsystem intakeSubsystem) {
         this.shooterSubsystem = shooterSubsystem;
@@ -26,7 +28,7 @@ public class StartIntakeCommand extends CommandBase{
     @Override
     public void initialize() {
         // Start the shooter motor and capture the start time
-        shotStartTime = System.currentTimeMillis(); 
+        // shotStartTime = System.currentTimeMillis(); 
         shooterSubsystem.setKickerMotorSpeed(0.3);
         intakeSubsystem.setHoodPiston(true);
         intakeSubsystem.setMotorSpeed(intakeStartSpeed);
@@ -42,14 +44,16 @@ public class StartIntakeCommand extends CommandBase{
             shooterSubsystem.setKickerMotorSpeed(0);
         }
 
-        if (isOffsetAdded && 100 * ((System.currentTimeMillis() - shotStartTime) / 100) % intakeSpeedTimer == 0) {
-            isOffsetAdded = false;
-            intakeSubsystem.setMotorSpeed(intakeStartSpeed - intakeOffsetSpeed);
-        }
-        else if (!isOffsetAdded && 100 * ((System.currentTimeMillis() - shotStartTime) / 100) % intakeSpeedTimer == 0) {
-            isOffsetAdded = true;
-            intakeSubsystem.setMotorSpeed(intakeStartSpeed + intakeOffsetSpeed);
-        }
+        intakeSubsystem.setMotorSpeed(intakeStartSpeed);
+
+        // if (isOffsetAdded && 100 * ((System.currentTimeMillis() - shotStartTime) / 100) % intakeSpeedTimer == 0) {
+        //     isOffsetAdded = false;
+        //     intakeSubsystem.setMotorSpeed(intakeStartSpeed - intakeOffsetSpeed);
+        // }
+        // else if (!isOffsetAdded && 100 * ((System.currentTimeMillis() - shotStartTime) / 100) % intakeSpeedTimer == 0) {
+        //     isOffsetAdded = true;
+        //     intakeSubsystem.setMotorSpeed(intakeStartSpeed + intakeOffsetSpeed);
+        // }
     }
 
     // Called once the command ends or is interrupted.
