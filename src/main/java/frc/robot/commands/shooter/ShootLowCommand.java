@@ -10,7 +10,7 @@ public class ShootLowCommand extends CommandBase {
     private final IntakeSubsystem intakeSubsystem;
     private long shotStartTime = 0;
 
-    private final float SHOOTER_SPEED = 0.40f;
+    private final float SHOOTER_SPEED = 0.30f;
     private final float KICKER_SPEED = 0.75f;
 
     private final int EXCECUTE_TIME_SECONDS = 2;

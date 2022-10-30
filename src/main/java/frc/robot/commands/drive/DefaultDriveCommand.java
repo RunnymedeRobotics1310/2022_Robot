@@ -34,8 +34,8 @@ public class DefaultDriveCommand extends CommandBase {
 
 		// What else to put here ladies and gentlemen?
 
-		double leftY = driverController.getRawAxis(1);
-		double leftX = driverController.getRawAxis(0);
+		double leftY = (Math.abs(driverController.getRawAxis(1)) < 0.075f) ? 0.0f : driverController.getRawAxis(1); 
+		double leftX = (Math.abs(driverController.getRawAxis(0)) < 0.075f) ? 0.0f : driverController.getRawAxis(0);
 		double leftSpeed = leftY * -1 + leftX;
 		double rightSpeed = leftY * -1 - leftX;
 
