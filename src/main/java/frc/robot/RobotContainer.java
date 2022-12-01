@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OiConstants;
 import frc.robot.commands.auto.AutonomousCommand;
@@ -23,6 +24,7 @@ import frc.robot.commands.intake.ExtakeCommand;
 import frc.robot.commands.shooter.DefaultShooterCommand;
 import frc.robot.commands.shooter.ShootCommand;
 import frc.robot.commands.shooter.ShootLowCommand;
+import frc.robot.commands.shooter.TestShootCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -86,7 +88,7 @@ public class RobotContainer {
         Button shootLowButton = new JoystickButton(driverController, XboxController.Button.kX.value);
         Button intakeStartButton = new JoystickButton(driverController, XboxController.Button.kA.value);
         Button intakeStopButton = new JoystickButton(driverController, XboxController.Button.kB.value);
-        Button extakeButton = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
+        Button extakeButton = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
 
         // Button binding
         shootButton.whenPressed(new ShootCommand(shooterSubsystem, intakeSubsystem));
@@ -94,6 +96,9 @@ public class RobotContainer {
         intakeStartButton.whenPressed(new StartIntakeCommand(shooterSubsystem, intakeSubsystem));
         intakeStopButton.whenPressed(new EndIntakeCommand(shooterSubsystem, intakeSubsystem));
         extakeButton.whenPressed(new ExtakeCommand(shooterSubsystem, intakeSubsystem));
+
+        new Trigger(() -> driverController.getPOV() >= 0)
+        .whenActive(new TestShootCommand(driverController, shooterSubsystem, intakeSubsystem));
     }
 
     /**

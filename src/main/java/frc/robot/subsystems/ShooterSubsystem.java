@@ -28,11 +28,10 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void setShooterMotorSpeed(double speed) {
-
         shooterMotorSetpoint = speed;
         shooterMotor.set(speed);
-
     }
+
     public boolean getBallSensor(){
         return !ballSensor.get();
     }

@@ -30,19 +30,19 @@ public class DefaultIntakeCommand extends CommandBase {
 
     // Called every time the scheduler runs while the command is scheduled.
     // @Override
-    // public void execute() {
+    public void execute() {
 
-    //     if (driverController.getRawButton(1) == true) {
-    //         intakeSubsystem.setMotorSpeed(0.5);
-    //         intakeSubsystem.setRollerPiston(true);
-    //         intakeSubsystem.setHoodPiston(true);
-    //     }
-    //     else {
-    //         intakeSubsystem.setMotorSpeed(0);
-    //         intakeSubsystem.setRollerPiston(false);
-    //         intakeSubsystem.setHoodPiston(false);
-    //     }
-    // }
+        if (driverController.getRawButton(1) == true) {
+            intakeSubsystem.setMotorSpeed(0);
+            intakeSubsystem.setRollerPiston(true);
+            intakeSubsystem.setHoodPiston(true);
+        }
+        else {
+            intakeSubsystem.setMotorSpeed(0);
+            intakeSubsystem.setRollerPiston(false);
+            intakeSubsystem.setHoodPiston(false);
+        }
+    }
 
     // Called once the command ends or is interrupted.
     @Override

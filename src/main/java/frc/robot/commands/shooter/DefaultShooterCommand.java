@@ -1,6 +1,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -12,6 +13,9 @@ public class DefaultShooterCommand extends CommandBase {
 	private boolean shooterOn = false;
 	private boolean previousState = false;
 	private long shooterStartTime = 0;
+	private double shootSpeed = 0.5;
+	private long shootAdjustTimer = System.currentTimeMillis();
+
 
     public DefaultShooterCommand(XboxController driverController, ShooterSubsystem shooterSubsystem) {
         this.driverController = driverController;
@@ -31,29 +35,37 @@ public class DefaultShooterCommand extends CommandBase {
 	// button #2 = B on controller
 	@Override
 	public void execute() {
-		// if(driverController.getRawButton(2) && !previousState){
-		// 	previousState = true;
-		// 	shooterOn = !shooterOn;
-		// 	shooterStartTime = System.currentTimeMillis();
-		// }
-		// else if(!driverController.getRawButton(2)){
-		// 	previousState = false;
-		// }
 
-		// if(shooterOn) {
-		// 	shooterSubsystem.setShooterMotorSpeed(0.3);
-		// 	if (System.currentTimeMillis() - shooterStartTime > 1000){
-		// 		shooterSubsystem.setKickerMotorSpeed(0.3);
-		// 	} 
-		// 	// if (!ballSensor.get()){
-		// 	// 	shooterOn = !shooterOn;
-		// 	// }
-		// }
-		// else{
-		// 	shooterSubsystem.setShooterMotorSpeed(0);
-		// 	shooterSubsystem.setKickerMotorSpeed(0);
-		// }
+		
+		if(driverController.getRawButton(2) && !previousState){
+			previousState = true;
+			shooterOn = !shooterOn;
+			shooterStartTime = System.currentTimeMillis();
+		}
+		else if(!driverController.getRawButton(2)){
+			previousState = false;
+		}
+
+		if(shooterOn) {
+			shooterSubsystem.setShooterMotorSpeed(shootSpeed);
+			if (System.currentTimeMillis() - shooterStartTime > 1000){
+				shooterSubsystem.setKickerMotorSpeed(0.5);
+			} 
+			// Potential stop when no more balls are loaded
+			// if (!ballSensor.get()){
+			// 	shooterOn = !shooterOn;
+			// }
+		}
+		else 
+		{
+			shooterSubsystem.setShooterMotorSpeed(0);
+			shooterSubsystem.setKickerMotorSpeed(0);
+		}
+	//Takes input from d-pad between activation of kicker and shooter motors and adjusts shooter motor speed
+
+	
 	}
+	
 
 	// Called once the command ends or is interrupted.
 	@Override

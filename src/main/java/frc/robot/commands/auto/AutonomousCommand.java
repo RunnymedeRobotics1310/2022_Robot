@@ -40,7 +40,7 @@ public class AutonomousCommand extends SequentialCommandGroup {
             break;
 
         case AutoConstants.AUTO_PATTERN_SHOOT:
-            // Do nothing
+            // Does shoot pattern
             System.out.println("Do shoot selected");
             addCommands(new ShootCommand(shooterSubsystem, intakeSubsystem));
             break;

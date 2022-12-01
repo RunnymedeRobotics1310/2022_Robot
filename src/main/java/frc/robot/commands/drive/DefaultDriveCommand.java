@@ -69,14 +69,14 @@ public class DefaultDriveCommand extends CommandBase {
 
 
 		//stops the robot
-		boolean deadStop = false;
-		if (driverController.getLeftBumper()) {
-			deadStop = true;
-		}
+		// boolean deadStop = false;
+		// if (driverController.getLeftBumper()) {
+		// 	deadStop = true;
+		// }
 
-		if (deadStop) {
-			driveSubsystem.setMotorSpeeds(0, 0);
-		}
+		// if (deadStop) {
+		// 	driveSubsystem.setMotorSpeeds(0, 0);
+		// }
 	}
 
 	// Called once the command ends or is interrupted.
