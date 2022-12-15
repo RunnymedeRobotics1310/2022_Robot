@@ -44,6 +44,8 @@ public class RobotContainer {
     private final IntakeSubsystem intakeSubsystem     = new IntakeSubsystem();
     private final ShooterSubsystem shooterSubsystem   = new ShooterSubsystem();
     private final ClimbSubsystem climbSubsystem       = new ClimbSubsystem();
+    
+    private static final String TARGET_DISTANCE_ID = "Target Distance (cm)";
 
     // A chooser for autonomous commands
     SendableChooser<String> autoChooser = new SendableChooser<>();
@@ -71,6 +73,13 @@ public class RobotContainer {
         autoChooser.addOption(AutoConstants.AUTO_PATTERN_SHOOT_AND_MOVE, AutoConstants.AUTO_PATTERN_SHOOT_AND_MOVE);
 
 
+        // Initialize a Target Distance value
+        // Retrieve the value before putting it on the SmartDashboard in order to preserve
+        // any previous value that was entered.  Do not reset the target distance when
+        // deploying new code.
+        double targetDistance = SmartDashboard.getNumber(TARGET_DISTANCE_ID, 100);
+        SmartDashboard.putNumber(TARGET_DISTANCE_ID, targetDistance);
+        
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -113,5 +122,9 @@ public class RobotContainer {
                 intakeSubsystem,
                 shooterSubsystem,
                 autoChooser);
+    }
+    
+    public static double getTargetDistance() {
+    	return SmartDashboard.getNumber(TARGET_DISTANCE_ID, 100);
     }
 }
