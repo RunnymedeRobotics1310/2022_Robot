@@ -17,7 +17,7 @@ public class TestShootCommand extends CommandBase{
     private final float KICKER_SPEED = 0.75f;
 
     private final int EXCECUTE_TIME_SECONDS = 3;
-    private final int FINISH_TIME_SECONDS = 4;
+    private final int FINISH_TIME_SECONDS = 10;
 
     private final int MILLISECONDS_TO_SECONDS = 1000;
 
@@ -54,11 +54,11 @@ public class TestShootCommand extends CommandBase{
         }
 
         if (driverController.getPOV() == 0 && shooterMotorSpeed < 1) {
-            shooterMotorSpeed += 0.01;
+            shooterMotorSpeed += 0.05;
         }
 
         if (driverController.getPOV() == 180 && shooterMotorSpeed > 0) {
-            shooterMotorSpeed -= 0.01;
+            shooterMotorSpeed -= 0.05;
         }
 
         if (driverController.getStartButton()){
